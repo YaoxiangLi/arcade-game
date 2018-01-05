@@ -20,8 +20,8 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 
     // Collision condition
-    if (player.x < this.x + 60 &&
-        player.x + 37 > this.x &&
+    if (player.x < this.x + 50 &&
+        player.x + 30 > this.x &&
         player.y < this.y + 25 &&
         30 + player.y > this.y) {
         player.x = 200;
@@ -29,7 +29,7 @@ Enemy.prototype.update = function(dt) {
     }
 
     // Enemy roll back
-    if (this.x > 550) {
+    if (this.x > 505) {
         this.x = -100;
         this.speed = 100 + Math.floor(Math.random() * 512);
     }
