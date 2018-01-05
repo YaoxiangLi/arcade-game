@@ -68,6 +68,7 @@ Player.prototype.update = function() {
     if (this.y < 0) {
         this.x = 200;
         this.y = 380;
+        endGame();
     }
 };
 
@@ -122,3 +123,18 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+// Win the Game
+function endGame(moves, score) {
+	swal({
+		title: 'Congratulations! You Won!',
+		type: 'success',
+		confirmButtonColor: '#02ccba',
+		confirmButtonText: 'Play again!'
+	}).then(function(isConfirm) {
+		if (isConfirm) {
+            this.x = 200;
+            this.y = 380;
+		}
+	})
+}
