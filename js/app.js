@@ -20,15 +20,13 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 
     // Collision condition
-    if (player.x < this.x + 50 &&
-        player.x + 30 > this.x &&
-        player.y < this.y + 25 &&
-        30 + player.y > this.y) {
+    if (player.x < this.x + 50 && player.x + 30 > this.x && player.y < this.y + 25 && 30 + player.y > this.y) {
+        // Reset player
         player.x = 200;
         player.y = 380;
     }
 
-    // Enemy roll back
+    // Enemy roll back from boundries
     if (this.x > 505) {
         this.x = -100;
         this.speed = 100 + Math.floor(Math.random() * 512);
@@ -53,11 +51,7 @@ var Player = function(x, y, speed) {
 
 // Update the player's position, required method for game
 Player.prototype.update = function() {
-    // Prevent player from moving beyond canvas wall boundaries
-    if (this.y > 380) {
-        this.y = 380;
-    }
-
+    // Prevent player from moving out the canvas
     if (this.x > 400) {
         this.x = 400;
     }
@@ -66,7 +60,11 @@ Player.prototype.update = function() {
         this.x = 0;
     }
 
-    // Check for player reaching top of canvas and winning the game
+    if (this.y > 380) {
+        this.y = 380;
+    }
+
+    // If the player get to the top, then end the game and reset player
     if (this.y < 0) {
         this.x = 200;
         this.y = 380;
@@ -103,11 +101,11 @@ Player.prototype.handleInput = function(keyPress) {
 var allEnemies = [];
 
 // Position "y" where the enemies will are created
-var enemyPosition = [60, 140, 220];
+var initPosition = [60, 140, 220];
 var player = new Player(200, 380, 50);
 var enemy;
 
-enemyPosition.forEach(function(posY) {
+initPosition.forEach(function(posY) {
     enemy = new Enemy(0, posY, 100 + Math.floor(Math.random() * 512));
     allEnemies.push(enemy);
 });
